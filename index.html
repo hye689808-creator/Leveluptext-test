@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level-Up Text - 독해력 회복 프로젝트</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary: #EC4899;
+            --accent: #F59E0B;
+            --light-bg: #F8FAFC;
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: white;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 8rem 5%;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid white;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: white;
+        }
+
+        .btn-secondary {
+            border: 2px solid white;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 6rem 5%;
+            background: var(--light-bg);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        .problem-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .problem-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h3 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .stat-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 6rem 5%;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .solution-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .solution-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .solution-card .number {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .solution-card h3 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .solution-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Target Audience */
+        .audience {
+            padding: 6rem 5%;
+            background: var(--light-bg);
+        }
+
+        .audience-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .audience-text h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+        }
+
+        .audience-list {
+            list-style: none;
+        }
+
+        .audience-list li {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: white;
+            border-radius: 0.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .audience-list li strong {
+            color: var(--primary);
+        }
+
+        /* Learning Process Section */
+        .learning-process {
+            padding: 6rem 5%;
+        }
+
+        .process-timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 3rem auto;
+        }
+
+        .process-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .process-item::before {
+            content: '';
+            position: absolute;
+            left: 49px;
+            top: 100px;
+            width: 2px;
+            height: calc(100% + 1rem);
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .process-item:last-child::before {
+            display: none;
+        }
+
+        .process-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            font-weight: 700;
+            position: relative;
+            z-index: 10;
+            flex-shrink: 0;
+        }
+
+        .process-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .process-item:hover .process-content {
+            border-color: var(--primary);
+            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
+            transform: translateX(10px);
+        }
+
+        .process-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .process-content .subtitle {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .process-content p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .process-features {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        .process-features strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .process-features li {
+            color: var(--text-light);
+            padding: 0.25rem 0;
+        }
+
+        .process-features li::before {
+            content: '✓ ';
+            color: var(--secondary);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .problem-content,
+            .audience-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+
+            .process-item {
+                grid-template-columns: 80px 1fr;
+                gap: 1.5rem;
+            }
+
+            .process-number {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
+            }
+
+            .process-item::before {
+                left: 39px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">📖 Level-Up Text</div>
+        <ul class="nav-links">
+            <li><a href="#problem">문제</a></li>
+            <li><a href="#solution">솔루션</a></li>
+            <li><a href="#audience">타겟</a></li>
+            <li><a href="#process">학습과정</a></li>
+        </ul>
+        <button class="cta-button">시작하기</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>긴 글을 읽는 감각을 되찾아보세요</h1>
+        <p>숏폼의 중독에서 벗어나 독해력을 회복하는 AI 학습 여정</p>
+        <div class="btn-group">
+            <a href="#" class="btn-primary">지금 시작</a>
+            <a href="#" class="btn-secondary">더 알아보기</a>
+        </div>
+    </section>
+
+    <!-- Problem Definition -->
+    <section class="problem" id="problem">
+        <h2 class="section-title">🚨 문제 정의</h2>
+        <p class="section-subtitle">숏폼 중심의 콘텐츠가 만드는 새로운 문해력 위기</p>
+        <div class="problem-content">
+            <div class="problem-stats">
+                <div class="stat-card">
+                    <h3>증가하는 집중력 감소</h3>
+                    <p>30초 숏폼에 익숙해진 뇌는 30분 분량의 콘텐츠를 감당하지 못합니다</p>
+                </div>
+                <div class="stat-card">
+                    <h3>문해력 하락</h3>
+                    <p>"심심한 사과", "금일" 같은 기본 단어도 인식하지 못하는 현상 증가</p>
+                </div>
+                <div class="stat-card">
+                    <h3>학습 의욕 저하</h3>
+                    <p>5줄 이상의 글 읽기를 회피하는 습관이 강화됨</p>
+                </div>
+            </div>
+            <div style="background: white; padding: 3rem; border-radius: 1rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-light);">
+                    숏폼이 일상화되면서 <strong style="color: var(--primary);">호흡이 긴 콘텐츠를 이해하는 능력이 급속도로 감소</strong>하고 있습니다. 
+                    이는 단순한 개인의 문제가 아닌, 정보 활용 능력과 비판적 사고 기능에까지 영향을 미치는 사회적 위기입니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution -->
+    <section class="solution" id="solution">
+        <h2 class="section-title">💡 우리의 솔루션</h2>
+        <p class="section-subtitle">단계별 적응형 학습으로 독해력을 되찾기</p>
+        <div class="solution-grid">
+            <div class="solution-card">
+                <div class="number">1️⃣</div>
+                <h3>짧고 간결한 요약</h3>
+                <p>100자 이내 한 줄 요약으로 시작해 핵심을 빠르게 이해합니다</p>
+            </div>
+            <div class="solution-card">
+                <div class="number">2️⃣</div>
+                <h3>점진적 길이 증가</h3>
+                <p>사용자 레벨이 올라갈수록 요약문의 길이를 증가시켜 적응력을 키웁니다</p>
+            </div>
+            <div class="solution-card">
+                <div class="number">3️⃣</div>
+                <h3>셀프 요약 & 첨삭</h3>
+                <p>직접 요약을 작성하고 AI 피드백을 받으며 능동적 사고로 전환합니다</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="audience" id="audience">
+        <h2 class="section-title">🎯 타겟 오디언스</h2>
+        <p class="section-subtitle">누가 리드마인드가 필요할까요?</p>
+        <div class="audience-content">
+            <div class="audience-text">
+                <h3>2~30대 숏폼 이용자</h3>
+                <ul class="audience-list">
+                    <li><strong>집중력 부족:</strong> 5분 이상의 영상/글 읽기가 어려운 상태</li>
+                    <li><strong>어휘력 약화:</strong> 일상적인 단어도 정확한 뜻을 모르는 경우</li>
+                    <li><strong>학습 회피:</strong> 긴 텍스트에 대한 심리적 저항감이 높음</li>
+                    <li><strong>성장 욕구:</strong> 하지만 자신의 독해력을 키우고 싶은 의지가 있음</li>
+                </ul>
+            </div>
+            <div style="background: linear-gradient(135deg, var(--secondary), var(--accent)); border-radius: 1rem; padding: 3rem; color: white; display: flex; align-items: center; justify-content: center; min-height: 300px;">
+                <p style="font-size: 3rem; text-align: center;">📱 → 📚</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Process Section -->
+    <section class="learning-process" id="process">
+        <h2 class="section-title">📚 단계별 학습 과정</h2>
+        <p class="section-subtitle">점진적 난이도 상향으로 독해력과 어휘력을 동시에 키우는 방식</p>
+        
+        <div class="process-timeline">
+            <!-- Step 1 -->
+            <div class="process-item">
+                <div class="process-number">1</div>
+                <div class="process-content">
+                    <h3>핵심 추출 단계</h3>
+                    <div class="subtitle">긴 글에서 가장 중요한 것만 빠르게 파악</div>
+                    <p>사용자가 처음 글을 받으면 AI가 100자 이내의 한 줄 요약으로 정보를 압축해 제공합니다. 긴 글을 읽기 전에 "이 글이 뭘 말하는 건가"를 빠르게 파악하도록 도와줍니다.</p>
+                    <div class="process-features">
+                        <strong>제공 정보:</strong>
+                        <ul>
+                            <li>100자 이내 한 줄 요약</li>
+                            <li>핵심 키워드 3~5개</li>
+                            <li>예상 읽기 시간</li>
+                            <li>글의 난이도 평가</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="process-item">
+                <div class="process-number">2</div>
+                <div class="process-content">
+                    <h3>용어 학습 단계</h3>
+                    <div class="subtitle">모르는 단어를 즉시 해결하며 어휘력 확장</div>
+                    <p>글 속의 낯선 용어와 전문 개념을 자동으로 감지합니다. 사용자 눈높이에 맞춘 설명을 제공하고, 해당 용어들을 개인 용어집에 저장하여 반복 학습 시 재사용합니다.</p>
+                    <div class="process-features">
+                        <strong>학습 기능:</strong>
+                        <ul>
+                            <li>문맥에 맞는 단어 설명</li>
+                            <li>예시 문장과 함께 제시</li>
+                            <li>개인 용어집 자동 저장</li>
+                            <li>관련 단어 추천</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="process-item">
+                <div class="process-number">3</div>
+                <div class="process-content">
+                    <h3>원문 비교 단계</h3>
+                    <div class="subtitle">원문과 요약을 나란히 보며 관계 파악</div>
+                    <p>좌우 분할 화면으로 원문과 요약을 동시에 표시합니다. 요약이 원문의 어느 부분에서 나온 것인지 색상으로 매핑하여 "글의 어떤 부분이 중요한지" 직관적으로 이해할 수 있습니다.</p>
+                    <div class="process-features">
+                        <strong>시각화 기능:</strong>
+                        <ul>
+                            <li>원문 ↔ 요약 좌우 분할</li>
+                            <li>색상 매핑으로 대응 부분 표시</li>
+                            <li>섹션별 요약 비교</li>
+                            <li>주요 문장 하이라이트</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="process-item">
+                <div class="process-number">4</div>
+                <div class="process-content">
+                    <h3>이해도 확인 단계</h3>
+                    <div class="subtitle">비판적 사고 질문으로 수동적 읽기 극복</div>
+                    <p>요약을 읽은 후 1~3개의 질문을 제시합니다. "글쓴이의 의도는?", "이 주장의 근거는?", "빠진 부분은?" 같은 질문을 통해 단순 정보 습득에서 능동적 사고로 전환합니다.</p>
+                    <div class="process-features">
+                        <strong>질문 유형:</strong>
+                        <ul>
+                            <li>글쓴이의 의도 파악</li>
+                            <li>주장과 근거 검증</li>
+                            <li>빠진 논리 발견</li>
+                            <li>다른 관점 제시</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="process-item">
+                <div class="process-number">5</div>
+                <div class="process-content">
+                    <h3>직접 요약 단계</h3>
+                    <div class="subtitle">AI 없이 스스로 글을 읽고 정리</div>
+                    <p>타이머와 빈 화면만 제공하고 사용자가 직접 요약을 작성하도록 합니다. 완성 전까지 어떤 힌트도 주지 않아 진정한 독해와 이해를 강제합니다. 이 단계부터 능동적 학습이 시작됩니다.</p>
+                    <div class="process-features">
+                        <strong>학습 방식:</strong>
+                        <ul>
+                            <li>제한 시간 내 요약 작성</li>
+                            <li>완전한 독서 경험</li>
+                            <li>자기 언어로 정리</li>
+                            <li>집중력 강화 훈련</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="process-item">
+                <div class="process-number">6</div>
+                <div class="process-content">
+                    <h3>첨삭 피드백 단계</h3>
+                    <div class="subtitle">사용자 요약을 상세 분석하며 성장 방향 제시</div>
+                    <p>사용자가 작성한 요약을 원문과 비교 분석합니다. 빠진 쟁점, 오해한 부분, 잘 쓴 문장을 구체적으로 표시합니다. 단순 점수가 아닌 성장 방향을 피드백으로 제공하여 동기 부여와 학습 효율을 동시에 달성합니다.</p>
+                    <div class="process-features">
+                        <strong>피드백 내용:</strong>
+                        <ul>
+                            <li>빠진 핵심 요소 지적</li>
+                            <li>오해한 부분 설명</li>
+                            <li>잘 쓴 표현 칭찬</li>
+                            <li>다음 단계 학습 방향</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="process-item">
+                <div class="process-number">7</div>
+                <div class="process-content">
+                    <h3>레벨업 및 성장 단계</h3>
+                    <div class="subtitle">축적된 데이터로 자동 난이도 조정</div>
+                    <p>읽기 패턴, 퀴즈 성과, 요약 품질을 종합 분석하여 사용자 레벨을 판정합니다. 레벨이 올라가면 요약 길이가 점진적으로 증가하고(3문장 → 5문장 → 한 단락), 새로운 학습 기능이 잠금 해제됩니다. 이를 통해 지속적인 성취감을 경험합니다.</p>
+                    <div class="process-features">
+                        <strong>레벨업 기준:</strong>
+                        <ul>
+                            <li>읽기 지속 시간 증가</li>
+                            <li>퀴즈 정답률 향상</li>
+                            <li>요약 품질 개선</li>
+                            <li>어휘 습득 수 누적</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>독해력을 되찾을 준비가 되셨나요?</h2>
+        <p>Level-Up Text와 함께 긴 글을 읽는 감각을 되찾고, 진정한 독해력으로 성장하세요</p>
+        <button class="btn-primary" style="border: 2px solid white;">지금 시작하기</button>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Level-Up Text. 모든 권리 보유.</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.7;">독해력 복원 프로젝트</p>
+    </footer>
+</body>
+</html>
